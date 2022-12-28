@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const StyledChoiceButton = styled.div`
@@ -8,9 +9,12 @@ const StyledChoiceButton = styled.div`
   box-sizing: border-box;
 `;
 export const ChoiceButton = () => {
+  const [isfilled, setFilled] = useState(false);
+  const onClickChoiceButton = () => {
+    console.log(isfilled);
+    setFilled(!isfilled);
+  };
   return (
-    <>
-      <StyledChoiceButton></StyledChoiceButton>
-    </>
+    <StyledChoiceButton onClick={onClickChoiceButton}></StyledChoiceButton>
   );
 };
