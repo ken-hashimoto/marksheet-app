@@ -1,13 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export const ChoiceButton = () => {
+export const ChoiceButton = (props) => {
+  const index = props.index;
   const StyledChoiceButton = styled.div`
     width: 15px;
     height: 30px;
     border-radius: 50%;
     border: 2px solid;
     box-sizing: border-box;
+    line-height: 30px;
+    margin: 10px;
     &.is-filled {
       background: black;
     }
@@ -21,6 +24,8 @@ export const ChoiceButton = () => {
     <StyledChoiceButton
       onClick={onClickChoiceButton}
       className={isFilled ? "is-filled" : ""}
-    ></StyledChoiceButton>
+    >
+      {index}
+    </StyledChoiceButton>
   );
 };
