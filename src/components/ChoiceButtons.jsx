@@ -37,7 +37,8 @@ export const ChoiceButtons = (props) => {
   const SChoiceButtonsWrapper = styled.div`
     display: flex;
     border: 2px solid;
-    width: fit-content;
+    width: fit-content; // 大きさを子要素似合わせる
+    margin: 0 auto; // 中央揃え
   `;
   return (
     <SChoiceButtonsWrapper>
