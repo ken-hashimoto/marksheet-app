@@ -1,6 +1,3 @@
 import ReactDOM from "react-dom";
-import { ChoiceButtons } from "./components/ChoiceButtons";
-ReactDOM.render(
-  <ChoiceButtons cnt={5} />,
-  document.getElementById("root")
-);
+import { App } from "./App";
+ReactDOM.render(<App />, document.getElementById("root"));
