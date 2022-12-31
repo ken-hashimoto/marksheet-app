@@ -1,15 +1,17 @@
 import { ChoiceButtons } from "./components/ChoiceButtons";
 import styled from "styled-components";
-import { Home } from "./route/Home";
-import { Buttons } from "./route/Buttons";
+import { Home } from "./routes/Home";
+import { Buttons } from "./routes/Buttons";
+import { NotFound } from "./routes/NotFound";
 import { Routes, Route } from "react-router-dom";
 export const App = () => {
   return (
     <>
-      <h1>Hello React Router v6</h1>
+      <h1>マークシート</h1>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/buttons" element={<Buttons />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
