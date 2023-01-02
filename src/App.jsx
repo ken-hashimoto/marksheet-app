@@ -2,10 +2,11 @@
 import { Home } from "./routes/Home";
 import { NotFound } from "./routes/NotFound";
 import { Routes, Route } from "react-router-dom";
+import { Header } from "./components/header";
 export const App = () => {
   return (
     <>
-      <h1>マークシート</h1>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />

@@ -47,7 +47,13 @@ const SelectQNum = ({ value, handler }) => {
   const handleQNum = (e) => {
     handler((value) => (value = e.value));
   };
-  return <Select options={options} onChange={handleQNum} />;
+  return (
+    <Select
+      options={options}
+      onChange={handleQNum}
+      defaultValue={options[5 - 1]}
+    />
+  );
 };
 export const Home = () => {
   const initialQNum = 5;
