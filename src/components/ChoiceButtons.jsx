@@ -1,12 +1,21 @@
 import styled from "styled-components";
 import { useState } from "react";
 
+const SChoiceButtonsListCpntainer = styled.div`
+  margin: 0 auto;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  width: fit-content; // 大きさを子要素似合わせる
+`;
 const SChoiceButtonsWrapper = styled.div`
   display: flex;
-  border: 2px solid;
+  border-right: 2px solid;
+  border-left: 2px solid;
   height: 50px;
   width: fit-content; // 大きさを子要素似合わせる
-  margin: auto; // 選択肢群の中央揃え
+  &.is-gray {
+    background-color: #e7e5e5;
+  }
 `;
 
 // ChoiceButtonとQNumを格納するcontainer
@@ -78,15 +87,15 @@ export const ChoiceButtonList = (props) => {
     Array.from({ length: stop - start + 1 }, (_, i) => start + i);
   const QNumList = generateQNumList(1, QNum);
   return (
-    <>
+    <SChoiceButtonsListCpntainer>
       {QNumList.map((val) => (
         <>
-          <SChoiceButtonsWrapper>
+          <SChoiceButtonsWrapper className={val % 2 === 0 ? "is-gray" : ""}>
             <QNumBox QNumIndex={val}></QNumBox>
             <ChoiceButtons cnt={cnt} format={format}></ChoiceButtons>
           </SChoiceButtonsWrapper>
         </>
       ))}
-    </>
+    </SChoiceButtonsListCpntainer>
   );
 };
