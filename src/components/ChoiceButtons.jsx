@@ -1,20 +1,21 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-const SChoiceButtonsListCpntainer = styled.div`
-  margin: 0 auto;
-  border-top: 2px solid;
-  border-bottom: 2px solid;
-  width: fit-content; // 大きさを子要素に合わせる
-`;
 const SChoiceButtonsWrapper = styled.div`
   display: flex;
   border-right: 2px solid;
   border-left: 2px solid;
   height: 50px;
   width: fit-content; // 大きさを子要素に合わせる
+  margin: 0 auto;
   &.is-gray {
     background-color: #e7e5e5;
+  }
+  &.is-top {
+    border-top: 2px solid;
+  }
+  &.is-bottom {
+    border-bottom: 2px solid;
   }
 `;
 
@@ -87,15 +88,19 @@ export const ChoiceButtonList = (props) => {
     Array.from({ length: stop - start + 1 }, (_, i) => start + i);
   const QNumList = generateQNumList(1, QNum);
   return (
-    <SChoiceButtonsListCpntainer>
+    <>
       {QNumList.map((val) => (
         <>
-          <SChoiceButtonsWrapper className={val % 2 === 0 ? "is-gray" : ""}>
+          <SChoiceButtonsWrapper
+            className={`${val % 2 === 0 ? "is-gray" : ""} ${
+              val === 1 ? "is-top" : ""
+            } ${val === QNum ? "is-bottom" : ""}`}
+          >
             <QNumBox QNumIndex={val}></QNumBox>
             <ChoiceButtons cnt={cnt} format={format}></ChoiceButtons>
           </SChoiceButtonsWrapper>
         </>
       ))}
-    </SChoiceButtonsListCpntainer>
+    </>
   );
 };
