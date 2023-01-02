@@ -5,14 +5,14 @@ const SChoiceButtonsListCpntainer = styled.div`
   margin: 0 auto;
   border-top: 2px solid;
   border-bottom: 2px solid;
-  width: fit-content; // 大きさを子要素似合わせる
+  width: fit-content; // 大きさを子要素に合わせる
 `;
 const SChoiceButtonsWrapper = styled.div`
   display: flex;
   border-right: 2px solid;
   border-left: 2px solid;
   height: 50px;
-  width: fit-content; // 大きさを子要素似合わせる
+  width: fit-content; // 大きさを子要素に合わせる
   &.is-gray {
     background-color: #e7e5e5;
   }
