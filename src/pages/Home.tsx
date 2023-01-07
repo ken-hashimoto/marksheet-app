@@ -1,24 +1,36 @@
 // import styled from "styled-components";
 import { useState } from "react";
-import { ChoiceButtonList } from "../components/ChoiceButtons";
 import Select from "react-select";
+import { ChoiceButtonList } from "../components/ChoiceButtonList";
 // 問題数の選択肢のプルダウンを生成
-const generateNumSelect = (maxNum) => {
-  const options = [];
+const generateNumSelect = (maxNum: number) => {
+  type Selections = {
+    value: number;
+    key: number;
+    label: string;
+  };
+  const options: Selections[] = [];
   for (let i = 1; i < maxNum + 1; i++) {
-    const tmp = { value: i, key: i, label: String(i) };
+    const tmp: Selections = { value: i, key: i, label: String(i) };
     options.push(tmp);
   }
   return options;
 };
-
-const SelectChoiceFormat = ({ value, handler }) => {
+type Props = {
+  value: number | string;
+  handler:
+    | React.Dispatch<React.SetStateAction<number>>
+    | React.Dispatch<React.SetStateAction<string>>;
+};
+const SelectChoiceFormat = (props: Props) => {
+  const { value, handler } = props;
   const options = [
     { value: "number", label: "数字（1,2,3, ...）" },
     { value: "alphabet", label: "アルファベット（A,B,C, ...）" },
   ];
-  const handleChoiceFormat = (e) => {
-    handler((value) => (value = e.value));
+  // TODO: ここのanyをなおす
+  const handleChoiceFormat = (e: any) => {
+    handler((value: any) => (value = e.value));
   };
   return (
     <Select
@@ -28,10 +40,12 @@ const SelectChoiceFormat = ({ value, handler }) => {
     />
   );
 };
-const SelectChoiceNum = ({ value, handler }) => {
+const SelectChoiceNum = (props: Props) => {
+  const { value, handler } = props;
   const options = generateNumSelect(9);
-  const handleChoiceNum = (e) => {
-    handler((value) => (value = e.value));
+  // TODO: ここのanyをなおす
+  const handleChoiceNum = (e: any) => {
+    handler((value: any) => (value = e.value));
   };
   return (
     <Select
@@ -42,10 +56,12 @@ const SelectChoiceNum = ({ value, handler }) => {
   );
 };
 
-const SelectQNum = ({ value, handler }) => {
+const SelectQNum = (props: Props) => {
+  const { value, handler } = props;
   const options = generateNumSelect(200);
-  const handleQNum = (e) => {
-    handler((value) => (value = e.value));
+  // TODO: ここのanyをなおす
+  const handleQNum = (e: any) => {
+    handler((value: any) => (value = e.value));
   };
   return (
     <Select
@@ -56,10 +72,11 @@ const SelectQNum = ({ value, handler }) => {
   );
 };
 export const Home = () => {
-  const initialQNum = 5;
-  const [ChoiceNum, setChoiceNum] = useState(initialQNum);
-  const [ChoiceFormat, setChoiceFormat] = useState("number");
-  const [QNum, setQNum] = useState(5);
+  const initialQNum: number = 5;
+  const initialChoiceNum: number = 5;
+  const [ChoiceNum, setChoiceNum] = useState<number>(initialChoiceNum);
+  const [ChoiceFormat, setChoiceFormat] = useState<string>("number");
+  const [QNum, setQNum] = useState<number>(initialQNum);
   return (
     <>
       <h2>問題番号の形式を選択してください</h2>

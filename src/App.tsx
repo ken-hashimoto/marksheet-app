@@ -1,9 +1,8 @@
-//import styled from "styled-components";
 import { Home } from "./routes/Home";
 import { NotFound } from "./routes/NotFound";
 import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/header";
-export const App = () => {
+export const App: React.FC = () => {
   return (
     <>
       <Header />
