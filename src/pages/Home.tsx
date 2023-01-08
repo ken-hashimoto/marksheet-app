@@ -22,7 +22,7 @@ type Props = {
     | React.Dispatch<React.SetStateAction<number>>
     | React.Dispatch<React.SetStateAction<string>>;
 };
-const SelectChoiceFormat = (props: Props) => {
+export const SelectChoiceFormat = (props: Props) => {
   const { value, handler } = props;
   const options = [
     { value: "number", label: "数字（1,2,3, ...）" },
@@ -40,7 +40,7 @@ const SelectChoiceFormat = (props: Props) => {
     />
   );
 };
-const SelectChoiceNum = (props: Props) => {
+export const SelectChoiceNum = (props: Props) => {
   const { value, handler } = props;
   const options = generateNumSelect(9);
   // TODO: ここのanyをなおす
@@ -56,7 +56,7 @@ const SelectChoiceNum = (props: Props) => {
   );
 };
 
-const SelectQNum = (props: Props) => {
+export const SelectQNum = (props: Props) => {
   const { value, handler } = props;
   const options = generateNumSelect(200);
   // TODO: ここのanyをなおす

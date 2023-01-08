@@ -25,6 +25,7 @@ export const ChoiceButton = (props: Props) => {
     border: 2px solid;
     box-sizing: border-box;
     line-height: 30px;
+    font: 1em sans-serif;
     &.is-filled {
       background: black;
     }
