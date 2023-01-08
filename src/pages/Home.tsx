@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Select from "react-select";
 import { ChoiceButtonList } from "../components/ChoiceButtonList";
+import { MarkSheetParamsContext } from "../components/providers/MarkSheetParamsProvider";
 // 問題数の選択肢のプルダウンを生成
 const generateNumSelect = (maxNum: number) => {
   type Selections = {
@@ -23,9 +24,13 @@ type Props = {
 };
 export const SelectChoiceFormat = (props: Props) => {
   const { value, handler } = props;
+  const { ChoiceFormat } = useContext(MarkSheetParamsContext);
   const options = [
     { value: "number", label: "数字（1,2,3, ...）" },
-    { value: "alphabet", label: "アルファベット（A,B,C, ...）" },
+    {
+      value: "alphabet",
+      label: "アルファベット（A,B,C, ...）",
+    },
   ];
   // TODO: ここのanyをなおす
   const handleChoiceFormat = (e: any) => {
@@ -35,12 +40,13 @@ export const SelectChoiceFormat = (props: Props) => {
     <Select
       options={options}
       onChange={handleChoiceFormat}
-      defaultValue={options[0]}
+      defaultValue={options.find((item) => item.value === ChoiceFormat)}
     />
   );
 };
 export const SelectChoiceNum = (props: Props) => {
   const { value, handler } = props;
+  const { ChoiceNum } = useContext(MarkSheetParamsContext);
   const options = generateNumSelect(9);
   // TODO: ここのanyをなおす
   const handleChoiceNum = (e: any) => {
@@ -50,13 +56,14 @@ export const SelectChoiceNum = (props: Props) => {
     <Select
       options={options}
       onChange={handleChoiceNum}
-      defaultValue={options[5 - 1]}
+      defaultValue={options.find((item) => item.value === ChoiceNum)}
     />
   );
 };
 
 export const SelectQNum = (props: Props) => {
   const { value, handler } = props;
+  const { QNum } = useContext(MarkSheetParamsContext);
   const options = generateNumSelect(200);
   // TODO: ここのanyをなおす
   const handleQNum = (e: any) => {
@@ -66,25 +73,10 @@ export const SelectQNum = (props: Props) => {
     <Select
       options={options}
       onChange={handleQNum}
-      defaultValue={options[5 - 1]}
+      defaultValue={options.find((item) => item.value === QNum)}
     />
   );
 };
 export const Home = () => {
-  const initialQNum: number = 5;
-  const initialChoiceNum: number = 5;
-  const [ChoiceNum, setChoiceNum] = useState<number>(initialChoiceNum);
-  const [QNum, setQNum] = useState<number>(initialQNum);
-  return (
-    <>
-      <h2>選択肢の数(1から9まで)を入力してください</h2>
-      <SelectChoiceNum
-        value={ChoiceNum}
-        handler={setChoiceNum}
-      ></SelectChoiceNum>
-      <h2>問題数を入力してください</h2>
-      <SelectQNum value={QNum} handler={setQNum}></SelectQNum>
-      <ChoiceButtonList cnt={ChoiceNum} QNum={QNum}></ChoiceButtonList>
-    </>
-  );
+  return <ChoiceButtonList></ChoiceButtonList>;
 };

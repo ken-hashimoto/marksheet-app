@@ -1,17 +1,21 @@
-import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { SelectChoiceFormat, SelectChoiceNum, SelectQNum } from "../pages/Home";
 import { useContext } from "react";
-import { ChoiceFormatContext } from "./providers/marksheetParamsProvider";
+import { MarkSheetParamsContext } from "./providers/MarkSheetParamsProvider";
+
 export const Header = () => {
-  const initialQNum: number = 5;
-  const initialChoiceNum: number = 5;
-  const [ChoiceNum, setChoiceNum] = useState<number>(initialChoiceNum);
-  const [QNum, setQNum] = useState<number>(initialQNum);
-  const { ChoiceFormat, setChoiceFormat } = useContext(ChoiceFormatContext);
+  const {
+    ChoiceFormat,
+    setChoiceFormat,
+    ChoiceNum,
+    setChoiceNum,
+    QNum,
+    setQNum,
+  } = useContext(MarkSheetParamsContext);
+
   return (
     <Navbar bg="light" expand={false} className="mb-3">
       <Container fluid>

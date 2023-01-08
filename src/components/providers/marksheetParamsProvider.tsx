@@ -10,18 +10,35 @@ import {
 type Props = {
   children: ReactNode;
 };
-export const ChoiceFormatContext = createContext(
+export const MarkSheetParamsContext = createContext(
   {} as {
     ChoiceFormat: string;
     setChoiceFormat: Dispatch<SetStateAction<string>>;
+    ChoiceNum: number;
+    setChoiceNum: Dispatch<SetStateAction<number>>;
+    QNum: number;
+    setQNum: Dispatch<SetStateAction<number>>;
   }
 );
-export const ChoiceFormatProvider: FC<Props> = (props) => {
+export const MarkSheetParamsProvider: FC<Props> = (props) => {
   const { children } = props;
   const [ChoiceFormat, setChoiceFormat] = useState<string>("number");
+  const initialChoiceNum: number = 5;
+  const [ChoiceNum, setChoiceNum] = useState<number>(initialChoiceNum);
+  const initialQNum: number = 5;
+  const [QNum, setQNum] = useState<number>(initialQNum);
   return (
-    <ChoiceFormatContext.Provider value={{ ChoiceFormat, setChoiceFormat }}>
+    <MarkSheetParamsContext.Provider
+      value={{
+        ChoiceFormat,
+        setChoiceFormat,
+        ChoiceNum,
+        setChoiceNum,
+        QNum,
+        setQNum,
+      }}
+    >
       {children}
-    </ChoiceFormatContext.Provider>
+    </MarkSheetParamsContext.Provider>
   );
 };
