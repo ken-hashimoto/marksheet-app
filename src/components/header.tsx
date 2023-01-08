@@ -1,24 +1,18 @@
-import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { SelectChoiceFormat, SelectChoiceNum, SelectQNum } from "../pages/Home";
-
+import { useContext } from "react";
+import { ChoiceFormatContext } from "./providers/marksheetParamsProvider";
 export const Header = () => {
   const initialQNum: number = 5;
   const initialChoiceNum: number = 5;
   const [ChoiceNum, setChoiceNum] = useState<number>(initialChoiceNum);
-  const [ChoiceFormat, setChoiceFormat] = useState<string>("number");
   const [QNum, setQNum] = useState<number>(initialQNum);
+  const { ChoiceFormat, setChoiceFormat } = useContext(ChoiceFormatContext);
   return (
-    // <Navbar bg="dark" variant="dark">
-    //   <Container>
-    //     <Navbar.Brand href="/">マークシート</Navbar.Brand>
-    //   </Container>
-    // </Navbar>
     <Navbar bg="light" expand={false} className="mb-3">
       <Container fluid>
         <Navbar.Brand href="/">マークシート</Navbar.Brand>

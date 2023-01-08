@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import { QNumBox } from "./QNum";
 import { ChoiceButtons } from "./ChoiceButtons";
+import { useContext } from "react";
+import { ChoiceFormatContext } from "./providers/marksheetParamsProvider";
 type Props = {
   QNum: number;
   cnt: number;
-  format: string;
 };
 export const ChoiceButtonList = (props: Props) => {
-  const { QNum, cnt, format } = props;
+  const { QNum, cnt } = props;
+  const { ChoiceFormat } = useContext(ChoiceFormatContext);
   const generateQNumList = (start: number, stop: number) =>
     Array.from({ length: stop - start + 1 }, (_, i) => start + i);
   const QNumList: number[] = generateQNumList(1, QNum);
@@ -21,7 +23,7 @@ export const ChoiceButtonList = (props: Props) => {
             } ${val === QNum ? "is-bottom" : ""}`}
           >
             <QNumBox QIndex={val}></QNumBox>
-            <ChoiceButtons cnt={cnt} format={format}></ChoiceButtons>
+            <ChoiceButtons cnt={cnt} format={ChoiceFormat}></ChoiceButtons>
           </SChoiceButtonsWrapper>
         </>
       ))}

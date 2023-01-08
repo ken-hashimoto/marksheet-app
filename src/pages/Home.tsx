@@ -1,4 +1,3 @@
-// import styled from "styled-components";
 import { useState } from "react";
 import Select from "react-select";
 import { ChoiceButtonList } from "../components/ChoiceButtonList";
@@ -75,15 +74,9 @@ export const Home = () => {
   const initialQNum: number = 5;
   const initialChoiceNum: number = 5;
   const [ChoiceNum, setChoiceNum] = useState<number>(initialChoiceNum);
-  const [ChoiceFormat, setChoiceFormat] = useState<string>("number");
   const [QNum, setQNum] = useState<number>(initialQNum);
   return (
     <>
-      <h2>問題番号の形式を選択してください</h2>
-      <SelectChoiceFormat
-        value={ChoiceFormat}
-        handler={setChoiceFormat}
-      ></SelectChoiceFormat>
       <h2>選択肢の数(1から9まで)を入力してください</h2>
       <SelectChoiceNum
         value={ChoiceNum}
@@ -91,11 +84,7 @@ export const Home = () => {
       ></SelectChoiceNum>
       <h2>問題数を入力してください</h2>
       <SelectQNum value={QNum} handler={setQNum}></SelectQNum>
-      <ChoiceButtonList
-        cnt={ChoiceNum}
-        format={ChoiceFormat}
-        QNum={QNum}
-      ></ChoiceButtonList>
+      <ChoiceButtonList cnt={ChoiceNum} QNum={QNum}></ChoiceButtonList>
     </>
   );
 };
