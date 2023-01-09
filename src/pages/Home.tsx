@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import Select from "react-select";
 import { ChoiceButtonList } from "../components/ChoiceButtonList";
 import { MarkSheetParamsContext } from "../components/providers/MarkSheetParamsProvider";
@@ -6,25 +6,18 @@ import { MarkSheetParamsContext } from "../components/providers/MarkSheetParamsP
 const generateNumSelect = (maxNum: number) => {
   type Selections = {
     value: number;
-    key: number;
     label: string;
   };
   const options: Selections[] = [];
   for (let i = 1; i < maxNum + 1; i++) {
-    const tmp: Selections = { value: i, key: i, label: String(i) };
+    const tmp: Selections = { value: i, label: String(i) };
     options.push(tmp);
   }
   return options;
 };
-type Props = {
-  value: number | string;
-  handler:
-    | React.Dispatch<React.SetStateAction<number>>
-    | React.Dispatch<React.SetStateAction<string>>;
-};
-export const SelectChoiceFormat = (props: Props) => {
-  const { value, handler } = props;
-  const { ChoiceFormat } = useContext(MarkSheetParamsContext);
+
+export const SelectChoiceFormat = () => {
+  const { ChoiceFormat, setChoiceFormat } = useContext(MarkSheetParamsContext);
   const options = [
     { value: "number", label: "数字（1,2,3, ...）" },
     {
@@ -34,7 +27,7 @@ export const SelectChoiceFormat = (props: Props) => {
   ];
   // TODO: ここのanyをなおす
   const handleChoiceFormat = (e: any) => {
-    handler((value: any) => (value = e.value));
+    setChoiceFormat((value: any) => (value = e.value));
   };
   return (
     <Select
@@ -44,13 +37,12 @@ export const SelectChoiceFormat = (props: Props) => {
     />
   );
 };
-export const SelectChoiceNum = (props: Props) => {
-  const { value, handler } = props;
-  const { ChoiceNum } = useContext(MarkSheetParamsContext);
+export const SelectChoiceNum = () => {
+  const { ChoiceNum, setChoiceNum } = useContext(MarkSheetParamsContext);
   const options = generateNumSelect(9);
   // TODO: ここのanyをなおす
   const handleChoiceNum = (e: any) => {
-    handler((value: any) => (value = e.value));
+    setChoiceNum((value: any) => (value = e.value));
   };
   return (
     <Select
@@ -61,13 +53,12 @@ export const SelectChoiceNum = (props: Props) => {
   );
 };
 
-export const SelectQNum = (props: Props) => {
-  const { value, handler } = props;
-  const { QNum } = useContext(MarkSheetParamsContext);
-  const options = generateNumSelect(200);
+export const SelectQNum = () => {
+  const { QNum, setQNum } = useContext(MarkSheetParamsContext);
+  const options = generateNumSelect(50);
   // TODO: ここのanyをなおす
   const handleQNum = (e: any) => {
-    handler((value: any) => (value = e.value));
+    setQNum((value: any) => (value = e.value));
   };
   return (
     <Select
