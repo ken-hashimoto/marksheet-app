@@ -24,6 +24,8 @@ const SChoiceButton = styled.div`
   border: 2px solid;
   box-sizing: border-box;
   line-height: 30px;
+  text-align: center;
+  padding: 2px 0;
   font: 1em sans-serif;
   &.is-filled {
     background: black;
