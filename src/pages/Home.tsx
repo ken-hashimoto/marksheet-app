@@ -6,8 +6,9 @@ import { setFormat } from "../redux/FormatSlice";
 import { RootState } from "../redux/store";
 import { setChoiceNum } from "../redux/ChoiceNumSlice";
 import { setQNum } from "../redux/QNumSlice";
-import { startloading, finishloading } from "../redux/loadingSlice";
+import { startloading } from "../redux/loadingSlice";
 import React from "react";
+import { useCallback } from "react";
 
 // 問題数の選択肢のプルダウンを生成
 const generateNumSelect = (maxNum: number) => {
@@ -35,11 +36,10 @@ export const SelectChoiceFormat = React.memo(() => {
     },
   ];
   // TODO: ここのanyをなおす
-  const handleChoiceFormat = (e: any) => {
+  const handleChoiceFormat = useCallback((e: any) => {
     dispatch(startloading());
-    console.log("loading Format");
     dispatch(setFormat(e.value));
-  };
+  }, []);
   return (
     <Select
       options={options}
@@ -56,11 +56,10 @@ export const SelectChoiceNum = React.memo(() => {
   const dispatch = useDispatch();
   const options = generateNumSelect(9);
   // TODO: ここのanyをなおす
-  const handleChoiceNum = (e: any) => {
+  const handleChoiceNum = useCallback((e: any) => {
     dispatch(startloading());
-    console.log("loading ChoiceNum");
     dispatch(setChoiceNum(e.value));
-  };
+  }, []);
   return (
     <Select
       options={options}
@@ -76,11 +75,11 @@ export const SelectQNum = React.memo(() => {
   const dispatch = useDispatch();
   const options = generateNumSelect(50);
   // TODO: ここのanyをなおす
-  const handleQNum = (e: any) => {
+  const handleQNum = useCallback((e: any) => {
     dispatch(startloading());
     console.log("loading QNum");
     dispatch(setQNum(e.value));
-  };
+  }, []);
   return (
     <Select
       options={options}

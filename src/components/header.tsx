@@ -26,7 +26,7 @@ export const Header = () => {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              {/* {isloading ? <p>読み込み中</p> : <>あああ</>} */}
+              {/* {isloading ? <p>読み込み中</p> : <p></p>} */}
               <Nav.Item>問題番号の形式を選択してください</Nav.Item>
               <SelectChoiceFormat></SelectChoiceFormat>
               <Nav.Item>選択肢の数(1から9まで)を入力してください</Nav.Item>
