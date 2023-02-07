@@ -17,20 +17,21 @@ type Props = {
   //選択肢の形式はalphabetか数字
   index: number | string;
 };
+const SChoiceButton = styled.div`
+  width: 15px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid;
+  box-sizing: border-box;
+  line-height: 30px;
+  font: 1em sans-serif;
+  &.is-filled {
+    background: black;
+  }
+`;
 export const ChoiceButton = React.memo((props: Props) => {
+  ChoiceButton.displayName = "ChoiceButton";
   const index = props.index;
-  const SChoiceButton = styled.div`
-    width: 15px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid;
-    box-sizing: border-box;
-    line-height: 30px;
-    font: 1em sans-serif;
-    &.is-filled {
-      background: black;
-    }
-  `;
   const [isFilled, setFilled] = useState<boolean>(false);
   const onClickChoiceButton = useCallback(() => {
     setFilled(!isFilled);

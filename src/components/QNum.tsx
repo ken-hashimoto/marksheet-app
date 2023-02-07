@@ -4,6 +4,7 @@ type Props = {
   QIndex: number;
 };
 export const QNumBox = React.memo((props: Props) => {
+  QNumBox.displayName = "QNumBox";
   // 問題番号の箱
   return (
     <SChoiceButtonsContainer className={"is-QNum"}>

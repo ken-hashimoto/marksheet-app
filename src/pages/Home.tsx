@@ -24,6 +24,7 @@ const generateNumSelect = (maxNum: number) => {
 };
 
 export const SelectChoiceFormat = React.memo(() => {
+  SelectChoiceFormat.displayName = "SelectChoiceFormat";
   const selectedFormat = useSelector((state: RootState) => state.format.format);
   const dispatch = useDispatch();
   const options = [
@@ -48,6 +49,7 @@ export const SelectChoiceFormat = React.memo(() => {
   );
 });
 export const SelectChoiceNum = React.memo(() => {
+  SelectChoiceNum.displayName = "SelectChoiceNum";
   const selectedChoiceNum = useSelector(
     (state: RootState) => state.ChoiceNum.ChoiceNum
   );
@@ -69,6 +71,7 @@ export const SelectChoiceNum = React.memo(() => {
 });
 
 export const SelectQNum = React.memo(() => {
+  SelectQNum.displayName = "SelectQNum";
   const selectedQNum = useSelector((state: RootState) => state.QNum.QNum);
   const dispatch = useDispatch();
   const options = generateNumSelect(50);
