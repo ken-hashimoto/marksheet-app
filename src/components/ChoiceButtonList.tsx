@@ -1,12 +1,16 @@
 import styled from "styled-components";
 import { QNumBox } from "./QNum";
 import { ChoiceButtons } from "./ChoiceButtons";
-import { useContext, useCallback } from "react";
-import { MarkSheetParamsContext } from "./providers/MarkSheetParamsProvider";
+import { useCallback } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 export const ChoiceButtonList = () => {
-  const { ChoiceFormat, ChoiceNum, QNum } = useContext(MarkSheetParamsContext);
-
+  const ChoicedNum = useSelector(
+    (state: RootState) => state.ChoiceNum.ChoiceNum
+  );
+  const QNum = useSelector((state: RootState) => state.QNum.QNum);
+  const ChoicedFormat = useSelector((state: RootState) => state.format.format);
   const generateQNumList = useCallback(
     (start: number, stop: number) =>
       Array.from({ length: stop - start + 1 }, (_, i) => start + i),
@@ -24,8 +28,8 @@ export const ChoiceButtonList = () => {
           >
             <QNumBox QIndex={val}></QNumBox>
             <ChoiceButtons
-              cnt={ChoiceNum}
-              format={ChoiceFormat}
+              cnt={ChoicedNum}
+              format={ChoicedFormat}
             ></ChoiceButtons>
           </SChoiceButtonsWrapper>
         </>
