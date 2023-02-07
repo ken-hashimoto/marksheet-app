@@ -2,6 +2,8 @@ import { useContext } from "react";
 import Select from "react-select";
 import { ChoiceButtonList } from "../components/ChoiceButtonList";
 import { MarkSheetParamsContext } from "../components/providers/MarkSheetParamsProvider";
+import styled from "styled-components";
+
 // 問題数の選択肢のプルダウンを生成
 const generateNumSelect = (maxNum: number) => {
   type Selections = {
@@ -68,6 +70,14 @@ export const SelectQNum = () => {
     />
   );
 };
+
+const HomeWrapper = styled.div`
+  margin: 50px 0;
+`;
 export const Home = () => {
-  return <ChoiceButtonList></ChoiceButtonList>;
+  return (
+    <HomeWrapper>
+      <ChoiceButtonList></ChoiceButtonList>
+    </HomeWrapper>
+  );
 };

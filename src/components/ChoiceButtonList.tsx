@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import { QNumBox } from "./QNum";
 import { ChoiceButtons } from "./ChoiceButtons";
-import { useContext } from "react";
+import { useContext, useCallback } from "react";
 import { MarkSheetParamsContext } from "./providers/MarkSheetParamsProvider";
 
 export const ChoiceButtonList = () => {
   const { ChoiceFormat, ChoiceNum, QNum } = useContext(MarkSheetParamsContext);
 
-  const generateQNumList = (start: number, stop: number) =>
-    Array.from({ length: stop - start + 1 }, (_, i) => start + i);
+  const generateQNumList = useCallback(
+    (start: number, stop: number) =>
+      Array.from({ length: stop - start + 1 }, (_, i) => start + i),
+    []
+  );
   const QNumList: number[] = generateQNumList(1, QNum);
   return (
     <>
