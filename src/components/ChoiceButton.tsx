@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useCallback } from "react";
 
 // ChoiceButtonとQNumを格納するcontainer
 export const SChoiceButtonsContainer = styled.div`
@@ -16,7 +17,7 @@ type Props = {
   //選択肢の形式はalphabetか数字
   index: number | string;
 };
-export const ChoiceButton = (props: Props) => {
+export const ChoiceButton = React.memo((props: Props) => {
   const index = props.index;
   const SChoiceButton = styled.div`
     width: 15px;
@@ -31,9 +32,9 @@ export const ChoiceButton = (props: Props) => {
     }
   `;
   const [isFilled, setFilled] = useState<boolean>(false);
-  const onClickChoiceButton = () => {
+  const onClickChoiceButton = useCallback(() => {
     setFilled(!isFilled);
-  };
+  }, [isFilled]);
   return (
     <SChoiceButtonsContainer>
       <SChoiceButton
@@ -44,4 +45,4 @@ export const ChoiceButton = (props: Props) => {
       </SChoiceButton>
     </SChoiceButtonsContainer>
   );
-};
+});

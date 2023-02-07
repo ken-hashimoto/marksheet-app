@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const FormatSlice = createSlice({
   name: "format",
@@ -6,7 +6,7 @@ export const FormatSlice = createSlice({
     format: "number",
   },
   reducers: {
-    setFormat: (state, action) => {
+    setFormat: (state, action: PayloadAction<string>) => {
       state.format = action.payload;
     },
   },

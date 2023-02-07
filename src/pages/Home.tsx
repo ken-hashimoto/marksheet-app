@@ -6,6 +6,8 @@ import { setFormat } from "../redux/FormatSlice";
 import { RootState } from "../redux/store";
 import { setChoiceNum } from "../redux/ChoiceNumSlice";
 import { setQNum } from "../redux/QNumSlice";
+import { startloading, finishloading } from "../redux/loadingSlice";
+import React from "react";
 
 // 問題数の選択肢のプルダウンを生成
 const generateNumSelect = (maxNum: number) => {
@@ -21,7 +23,7 @@ const generateNumSelect = (maxNum: number) => {
   return options;
 };
 
-export const SelectChoiceFormat = () => {
+export const SelectChoiceFormat = React.memo(() => {
   const selectedFormat = useSelector((state: RootState) => state.format.format);
   const dispatch = useDispatch();
   const options = [
@@ -33,6 +35,8 @@ export const SelectChoiceFormat = () => {
   ];
   // TODO: ここのanyをなおす
   const handleChoiceFormat = (e: any) => {
+    dispatch(startloading());
+    console.log("loading Format");
     dispatch(setFormat(e.value));
   };
   return (
@@ -42,8 +46,8 @@ export const SelectChoiceFormat = () => {
       defaultValue={options.find((item) => item.value === selectedFormat)}
     />
   );
-};
-export const SelectChoiceNum = () => {
+});
+export const SelectChoiceNum = React.memo(() => {
   const selectedChoiceNum = useSelector(
     (state: RootState) => state.ChoiceNum.ChoiceNum
   );
@@ -51,6 +55,8 @@ export const SelectChoiceNum = () => {
   const options = generateNumSelect(9);
   // TODO: ここのanyをなおす
   const handleChoiceNum = (e: any) => {
+    dispatch(startloading());
+    console.log("loading ChoiceNum");
     dispatch(setChoiceNum(e.value));
   };
   return (
@@ -60,14 +66,16 @@ export const SelectChoiceNum = () => {
       defaultValue={options.find((item) => item.value === selectedChoiceNum)}
     />
   );
-};
+});
 
-export const SelectQNum = () => {
+export const SelectQNum = React.memo(() => {
   const selectedQNum = useSelector((state: RootState) => state.QNum.QNum);
   const dispatch = useDispatch();
   const options = generateNumSelect(50);
   // TODO: ここのanyをなおす
   const handleQNum = (e: any) => {
+    dispatch(startloading());
+    console.log("loading QNum");
     dispatch(setQNum(e.value));
   };
   return (
@@ -77,7 +85,7 @@ export const SelectQNum = () => {
       defaultValue={options.find((item) => item.value === selectedQNum)}
     />
   );
-};
+});
 
 const HomeWrapper = styled.div`
   margin: 50px 0;

@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { QNumBox } from "./QNum";
 import { ChoiceButtons } from "./ChoiceButtons";
-import { useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useCallback, useEffect, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
+import { finishloading } from "../redux/loadingSlice";
 
 export const ChoiceButtonList = () => {
+  console.log("レンダリング");
+  const renderFlagRef = useRef(false);
   const ChoicedNum = useSelector(
     (state: RootState) => state.ChoiceNum.ChoiceNum
   );
@@ -17,6 +20,17 @@ export const ChoiceButtonList = () => {
     []
   );
   const QNumList: number[] = generateQNumList(1, QNum);
+  const dispatch = useDispatch();
+  const isloading = useSelector((state: RootState) => state.loading.isloading);
+  useEffect(() => {
+    if (renderFlagRef.current) {
+      console.log("finish");
+      dispatch(finishloading());
+      console.log(isloading);
+    } else {
+      renderFlagRef.current = true;
+    }
+  });
   return (
     <>
       {QNumList.map((val) => (
