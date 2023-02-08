@@ -86,8 +86,8 @@ export const Header = () => {
         dispatch(Recover(data.Buttons));
         return;
       } catch (e) {
+        // ここなんとかしたい、現状だとパースに失敗したら真っ白になる
         alert("読み込みに失敗しました、リロードしてください");
-
         return;
       }
     };
