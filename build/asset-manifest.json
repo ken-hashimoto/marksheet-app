@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/marksheet-app-practice/static/css/main.c2cab247.css",
+    "main.js": "/marksheet-app-practice/static/js/main.e992d1b3.js",
+    "index.html": "/marksheet-app-practice/index.html",
+    "main.c2cab247.css.map": "/marksheet-app-practice/static/css/main.c2cab247.css.map",
+    "main.e992d1b3.js.map": "/marksheet-app-practice/static/js/main.e992d1b3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c2cab247.css",
+    "static/js/main.e992d1b3.js"
+  ]
+}

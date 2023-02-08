@@ -27,13 +27,16 @@
     "web-vitals": "^3.1.0"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "gh-pages": "^5.0.0",
     "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -52,5 +55,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "https://ken-hashimoto.github.io/marksheet-app-practice"
 }
