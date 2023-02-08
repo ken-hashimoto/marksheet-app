@@ -39,7 +39,7 @@ export const SelectChoiceFormat = React.memo(() => {
   const handleChoiceFormat = useCallback((e: any) => {
     dispatch(startloading());
     dispatch(setFormat(e.value));
-  }, []);
+  }, [dispatch]);
   return (
     <Select
       options={options}
@@ -59,7 +59,7 @@ export const SelectChoiceNum = React.memo(() => {
   const handleChoiceNum = useCallback((e: any) => {
     dispatch(startloading());
     dispatch(setChoiceNum(e.value));
-  }, []);
+  }, [dispatch]);
   return (
     <Select
       options={options}
@@ -78,7 +78,7 @@ export const SelectQNum = React.memo(() => {
   const handleQNum = useCallback((e: any) => {
     dispatch(startloading());
     dispatch(setQNum(e.value));
-  }, []);
+  }, [dispatch]);
   return (
     <Select
       options={options}

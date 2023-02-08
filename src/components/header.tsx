@@ -8,7 +8,6 @@ import { Button } from "react-bootstrap";
 import { Recover, Reset } from "../redux/PushedButtonSlice";
 import { RootState } from "../redux/store";
 import { useRef } from "react";
-import styled from "styled-components";
 import { setFormat } from "../redux/FormatSlice";
 import { setChoiceNum } from "../redux/ChoiceNumSlice";
 import { setQNum } from "../redux/QNumSlice";
