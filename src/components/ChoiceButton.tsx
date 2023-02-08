@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React from "react";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Push, QPlace } from "../redux/PushedButtonSlice";

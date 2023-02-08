@@ -45,7 +45,10 @@ export const PushedButtonSlice = createSlice({
     Reset: (state) => {
       state.PushedButtonCondition = generateInitialArray();
     },
+    Recover: (state, action: PayloadAction<Array<Array<boolean>>>) => {
+      state.PushedButtonCondition = action.payload;
+    },
   },
 });
-export const { Push, SwapRows,Reset } = PushedButtonSlice.actions;
+export const { Push, SwapRows, Reset, Recover } = PushedButtonSlice.actions;
 export default PushedButtonSlice.reducer;

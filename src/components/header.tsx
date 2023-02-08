@@ -3,17 +3,70 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { SelectChoiceFormat, SelectChoiceNum, SelectQNum } from "../pages/Home";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "react-bootstrap";
-import { Reset } from "../redux/PushedButtonSlice";
+import { Recover, Reset } from "../redux/PushedButtonSlice";
+import { RootState } from "../redux/store";
+import { useRef } from "react";
+import styled from "styled-components";
 
 export const Header = () => {
   // const isloading = useSelector((state: RootState) => state.loading.isloading);
   const dispatch = useDispatch();
+  const ButtonCondition = useSelector(
+    (state: RootState) => state.ButtonCondition.PushedButtonCondition
+  );
+
   const onClickReset = () => {
-    dispatch(Reset());
+    if (window.confirm("この操作は取り消せません、よろしいですか？")) {
+      dispatch(Reset());
+    }
   };
+
+  const onClickSave = () => {
+    const fileName = "marksheet.json";
+    const data = new Blob([JSON.stringify(ButtonCondition)], {
+      type: "text/json",
+    });
+    const jsonURL = window.URL.createObjectURL(data);
+    const link = document.createElement("a");
+    document.body.appendChild(link);
+    link.href = jsonURL;
+    link.setAttribute("download", fileName);
+    link.click();
+    document.body.removeChild(link);
+  };
+  // ここ本当ににこれでいいのかな
+  const inputRef = useRef<HTMLInputElement>(null!);
+
+  const onClickRecover = () => {
+    console.log(inputRef.current);
+    inputRef.current.click();
+  };
+
+  const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // 型アサーションとかなくしたい
+    if (!event.target.files) return;
+    const fileReader = new FileReader();
+    fileReader.readAsText(event.target.files[0], "UTF-8");
+    let result: string | ArrayBuffer | null = "";
+    fileReader.onload = (e) => {
+      if (!(e.target instanceof FileReader)) {
+        return;
+      }
+      try {
+        result = e.target.result as string;
+        const data = JSON.parse(result!) as Array<Array<boolean>>;
+        dispatch(Recover(data));
+        return;
+      } catch (e) {
+        alert("読み込みに失敗しました、リロードしてください");
+
+        return;
+      }
+    };
+  };
+
   return (
     <Navbar bg="light" expand={false} className="mb-3">
       <Container fluid>
@@ -38,7 +91,22 @@ export const Header = () => {
               <SelectChoiceNum></SelectChoiceNum>
               <Nav.Item>問題数を入力してください</Nav.Item>
               <SelectQNum></SelectQNum>
-              <Button onClick={onClickReset}>
+              <p></p>
+              <Button onClick={onClickRecover} variant="primary">
+                塗りつぶしの状態をJSONファイルで復元する
+              </Button>
+              <input
+                hidden
+                ref={inputRef}
+                type="file"
+                onChange={onFileInputChange}
+              />
+              <p></p>
+              <Button onClick={onClickSave} variant="success">
+                塗りつぶしの状態をJSONファイルで保存する
+              </Button>
+              <p></p>
+              <Button onClick={onClickReset} variant="danger">
                 塗りつぶしの状態をリセットする
               </Button>
             </Nav>
