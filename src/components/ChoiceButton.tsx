@@ -60,7 +60,7 @@ export const ChoiceButton = React.memo((props: Props) => {
   const onClickChoiceButton = useCallback(() => {
     const place: QPlace = { QNum: QNum, index: NumIndex };
     dispatch(Push(place));
-  }, []);
+  }, [QNum, NumIndex, dispatch]);
   return (
     <SChoiceButtonsContainer>
       <SChoiceButton
