@@ -3,12 +3,17 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { SelectChoiceFormat, SelectChoiceNum, SelectQNum } from "../pages/Home";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
-// import { Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Reset } from "../redux/PushedButtonSlice";
 
 export const Header = () => {
   // const isloading = useSelector((state: RootState) => state.loading.isloading);
+  const dispatch = useDispatch();
+  const onClickReset = () => {
+    dispatch(Reset());
+  };
   return (
     <Navbar bg="light" expand={false} className="mb-3">
       <Container fluid>
@@ -33,7 +38,9 @@ export const Header = () => {
               <SelectChoiceNum></SelectChoiceNum>
               <Nav.Item>問題数を入力してください</Nav.Item>
               <SelectQNum></SelectQNum>
-              {/* <Button>塗りつぶしの状態をリセットする</Button> */}
+              <Button onClick={onClickReset}>
+                塗りつぶしの状態をリセットする
+              </Button>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>

@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { QNumBox } from "./QNum";
 import { ChoiceButtons } from "./ChoiceButtons";
-import { useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import { finishloading } from "../redux/loadingSlice";
+import { SwapRows, PairOfRows } from "../redux/PushedButtonSlice";
 
 export const ChoiceButtonList = () => {
-  console.log("レンダリング");
   const renderFlagRef = useRef(false);
   const ChoicedNum = useSelector(
     (state: RootState) => state.ChoiceNum.ChoiceNum
@@ -20,17 +20,36 @@ export const ChoiceButtonList = () => {
     []
   );
   const QNumList: number[] = generateQNumList(1, QNum);
+  /*
+  loadingの実装
+  */
   const dispatch = useDispatch();
-  const isloading = useSelector((state: RootState) => state.loading.isloading);
   useEffect(() => {
     if (renderFlagRef.current) {
-      console.log("finish");
       dispatch(finishloading());
-      console.log(isloading);
     } else {
       renderFlagRef.current = true;
     }
   });
+  /*
+  dragEventの実装
+  */
+  const [dragIndex, setDragIndex] = useState<number>(-1);
+  const dragStart = (index: number) => {
+    setDragIndex(index);
+  };
+  const dragEnter = (index: number) => {
+    if (index === dragIndex) return;
+    const swappedRows: PairOfRows = { QNum1: index, QNum2: dragIndex };
+    dispatch(SwapRows(swappedRows));
+    setDragIndex(index);
+  };
+  const dragEnd = () => {
+    setDragIndex(-1);
+  };
+  const isPushed = useSelector(
+    (state: RootState) => state.ButtonCondition.PushedButtonCondition
+  );
   return (
     <>
       {QNumList.map((val) => (
@@ -41,10 +60,21 @@ export const ChoiceButtonList = () => {
             } ${val === QNum ? "is-bottom" : ""}`}
           >
             <QNumBox QIndex={val}></QNumBox>
-            <ChoiceButtons
-              cnt={ChoicedNum}
-              format={ChoicedFormat}
-            ></ChoiceButtons>
+            <ChoiceButtonsContainer
+              draggable={true}
+              onDragStart={() => dragStart(val)}
+              onDragEnter={() => dragEnter(val)}
+              onDragOver={(event) => event.preventDefault()}
+              onDragEnd={dragEnd}
+              className={val === dragIndex ? "dragging" : ""}
+            >
+              <ChoiceButtons
+                QNum={val}
+                cnt={ChoicedNum}
+                format={ChoicedFormat}
+                isPushed={isPushed}
+              ></ChoiceButtons>
+            </ChoiceButtonsContainer>
           </SChoiceButtonsWrapper>
         </>
       ))}
@@ -67,5 +97,13 @@ const SChoiceButtonsWrapper = styled.div`
   }
   &.is-bottom {
     border-bottom: 2px solid;
+  }
+`;
+
+const ChoiceButtonsContainer = styled.div`
+  width: fit-content; // 大きさを子要素に合わせる
+  display: flex;
+  &.dragging {
+    background-color: gray;
   }
 `;

@@ -7,3 +7,10 @@ export const CreateInitialArrays = (QNum: number, ChoiceNum: number) => {
   }
   return initialarrays;
 };
+export const CreateInitialArraysByLimit = () => {
+  const initialarrays = new Array(QNumLimit);
+  for (let i = 0; i < QNumLimit; i++) {
+    initialarrays[i] = Array.from({ length: ChoiceLimit }, () => false);
+  }
+  return initialarrays;
+};

@@ -5,6 +5,13 @@ for (let i = 0; i < QNumLimit; i++) {
   initialarrays[i] = Array.from({ length: ChoiceLimit }, () => false);
 }
 
+const generateInitialArray = () => {
+  const initialarrays = new Array(QNumLimit);
+  for (let i = 0; i < QNumLimit; i++) {
+    initialarrays[i] = Array.from({ length: ChoiceLimit }, () => false);
+  }
+  return initialarrays;
+};
 export type QPlace = {
   QNum: number;
   index: number;
@@ -35,7 +42,10 @@ export const PushedButtonSlice = createSlice({
       state.PushedButtonCondition[action.payload.QNum1 - 1] = tmp2;
       state.PushedButtonCondition[action.payload.QNum2 - 1] = tmp1;
     },
+    Reset: (state) => {
+      state.PushedButtonCondition = generateInitialArray();
+    },
   },
 });
-export const { Push, SwapRows } = PushedButtonSlice.actions;
+export const { Push, SwapRows,Reset } = PushedButtonSlice.actions;
 export default PushedButtonSlice.reducer;

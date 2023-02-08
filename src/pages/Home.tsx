@@ -77,7 +77,6 @@ export const SelectQNum = React.memo(() => {
   // TODO: ここのanyをなおす
   const handleQNum = useCallback((e: any) => {
     dispatch(startloading());
-    console.log("loading QNum");
     dispatch(setQNum(e.value));
   }, []);
   return (

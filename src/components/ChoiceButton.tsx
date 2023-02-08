@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 import { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { Push, QPlace } from "../redux/PushedButtonSlice";
 
 // ChoiceButtonとQNumを格納するcontainer
 export const SChoiceButtonsContainer = styled.div`
@@ -16,6 +18,8 @@ export const SChoiceButtonsContainer = styled.div`
 type Props = {
   //選択肢の形式はalphabetか数字
   index: number | string;
+  QNum: number;
+  isPushed: boolean;
 };
 const SChoiceButton = styled.div`
   width: 15px;
@@ -31,18 +35,37 @@ const SChoiceButton = styled.div`
     background: black;
   }
 `;
+const ConvertToNumber: { [key: string]: number } = {
+  A: 1,
+  B: 2,
+  C: 3,
+  D: 4,
+  E: 5,
+  F: 6,
+  G: 7,
+  H: 8,
+  I: 9,
+};
 export const ChoiceButton = React.memo((props: Props) => {
   ChoiceButton.displayName = "ChoiceButton";
-  const index = props.index;
-  const [isFilled, setFilled] = useState<boolean>(false);
+  const { index, QNum, isPushed } = props;
+  const dispatch = useDispatch();
+  let NumIndex: number = 0;
+
+  if (typeof index === "string") {
+    NumIndex = ConvertToNumber[index];
+  } else {
+    NumIndex = index;
+  }
   const onClickChoiceButton = useCallback(() => {
-    setFilled(!isFilled);
-  }, [isFilled]);
+    const place: QPlace = { QNum: QNum, index: NumIndex };
+    dispatch(Push(place));
+  }, []);
   return (
     <SChoiceButtonsContainer>
       <SChoiceButton
         onClick={onClickChoiceButton}
-        className={isFilled ? "is-filled" : ""}
+        className={isPushed ? "is-filled" : ""}
       >
         {index}
       </SChoiceButton>
