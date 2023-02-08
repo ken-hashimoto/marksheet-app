@@ -9,23 +9,46 @@ import { Recover, Reset } from "../redux/PushedButtonSlice";
 import { RootState } from "../redux/store";
 import { useRef } from "react";
 import styled from "styled-components";
+import { setFormat } from "../redux/FormatSlice";
+import { setChoiceNum } from "../redux/ChoiceNumSlice";
+import { setQNum } from "../redux/QNumSlice";
 
 export const Header = () => {
   // const isloading = useSelector((state: RootState) => state.loading.isloading);
   const dispatch = useDispatch();
-  const ButtonCondition = useSelector(
+  const ButtonCondition: Array<Array<boolean>> = useSelector(
     (state: RootState) => state.ButtonCondition.PushedButtonCondition
   );
-
+  const selectedFormat: string = useSelector(
+    (state: RootState) => state.format.format
+  );
+  const selectedChoiceNum: number = useSelector(
+    (state: RootState) => state.ChoiceNum.ChoiceNum
+  );
+  const selectedQNum: number = useSelector(
+    (state: RootState) => state.QNum.QNum
+  );
   const onClickReset = () => {
     if (window.confirm("この操作は取り消せません、よろしいですか？")) {
       dispatch(Reset());
     }
   };
 
+  type JSONinput = {
+    Format: string;
+    ChoiceNum: number;
+    QNum: number;
+    Buttons: Array<Array<boolean>>;
+  };
   const onClickSave = () => {
     const fileName = "marksheet.json";
-    const data = new Blob([JSON.stringify(ButtonCondition)], {
+    const input: JSONinput = {
+      Format: selectedFormat,
+      ChoiceNum: selectedChoiceNum,
+      QNum: selectedQNum,
+      Buttons: ButtonCondition,
+    };
+    const data = new Blob([JSON.stringify(input)], {
       type: "text/json",
     });
     const jsonURL = window.URL.createObjectURL(data);
@@ -56,8 +79,11 @@ export const Header = () => {
       }
       try {
         result = e.target.result as string;
-        const data = JSON.parse(result!) as Array<Array<boolean>>;
-        dispatch(Recover(data));
+        const data = JSON.parse(result!) as JSONinput;
+        dispatch(setFormat(data.Format));
+        dispatch(setChoiceNum(data.ChoiceNum));
+        dispatch(setQNum(data.QNum));
+        dispatch(Recover(data.Buttons));
         return;
       } catch (e) {
         alert("読み込みに失敗しました、リロードしてください");
